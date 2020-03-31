@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="ui-g">
+
+    <div class="ui-g-12">
+      <h1>Lançamentos</h1>
+    </div>
+
+    <div class="ui-g-8 ui-fluid">
+      <label>Descrição</label>
+      <input pInputText>
+    </div>
+
+    <div class="ui-g-12">
+      <label style="display: block;">Vencimento</label>
+      <input pInputText style="width: 95px;">
+
+      <label>até</label>
+      <input pInputText style="width: 95px;">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+    </div>
+
+    <div class="ui-g-12">
+      <p-table [value]="lancamentos" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Pessoa</th>
+            <th>Descrição</th>
+            <th style="width: 120px;">Vencimento</th>
+            <th style="width: 120px;">Pagamento</th>
+            <th style="width: 120px;">Valor</th>
+            <th style="width: 95px;"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lancamento>
+          <tr>
+            <td>{{ lancamento.pessoa }}</td>
+            <td>{{ lancamento.descricao }}</td>
+            <td class="text-center">{{ lancamento.dataVencimento | date:'dd/MM/yyyy' }}</td>
+            <td class="text-center">{{ lancamento.dataPagamento | date:'dd/MM/yyyy' }}</td>
+            <td class="text-end" [style.color]="lancamento.tipo == 'DESPESA' ? 'red' : 'blue'">
+              {{ lancamento.valor | currency: 'BRL' }}
+            </td>
+            <td>
+              <button pButton icon="pi pi-pencil"></button>
+              <button pButton icon="pi pi-trash" class="ui-button-danger"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton label="Novo Lançamento"></button>
+    </div>
+
+  </div>
+</div>
