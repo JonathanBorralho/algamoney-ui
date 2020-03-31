@@ -9,15 +9,18 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LancamentosPesquisaComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,8 @@ registerLocaleData(localePt, 'pt');
     ButtonModule,
     CardModule,
     InputTextModule,
-    TableModule
+    TableModule,
+    TooltipModule
   ],
   providers: [ {provide: LOCALE_ID, useValue: 'pt'} ],
   bootstrap: [AppComponent]
