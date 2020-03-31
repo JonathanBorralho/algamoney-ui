@@ -9,11 +9,11 @@ import { MenuItem } from 'primeng/api';
   preserveWhitespaces: true
 })
 export class AppComponent implements OnInit {
-  items = [];
+  items: MenuItem[] = [];
   ngOnInit() {
     this.items = [
-      {label: 'Lançamentos', icon: 'pi pi-fw pi-chart-bar'},
-      {label: 'Pessoas', icon: 'pi pi-fw pi-users'},
+      {label: 'Lançamentos', icon: 'pi pi-fw pi-chart-bar', routerLink: ['/lancamentos']},
+      {label: 'Pessoas', icon: 'pi pi-fw pi-users', routerLink: ['/pessoas']},
       {label: 'Logout', icon: 'pi pi-fw pi-sign-out'}
     ];
   }
