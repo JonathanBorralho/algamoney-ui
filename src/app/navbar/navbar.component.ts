@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterEvent, NavigationEnd } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
-import { filter } from 'rxjs/operators'
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -12,9 +12,9 @@ export class NavbarComponent {
   sidebarVisible = false;
 
   constructor(private router: Router) {
-    router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe(_ => this.sidebarVisible = false);
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(_ => (this.sidebarVisible = false));
   }
 
   toggleSidebar() {

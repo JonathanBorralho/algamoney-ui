@@ -13,13 +13,13 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
 
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-registerLocaleData(localePt, 'pt');
-
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt, 'pt');
 
 
 @NgModule({
@@ -42,7 +42,7 @@ import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.co
     SidebarModule,
     MenuModule
   ],
-  providers: [ {provide: LOCALE_ID, useValue: 'pt'} ],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

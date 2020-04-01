@@ -1,9 +1,8 @@
-<p-sidebar [(visible)]="appbar.sidebarVisible"
-  blockScroll="true"
-  [style]="{width:'15em'}">
+<p-sidebar [(visible)]="appbar.sidebarVisible" blockScroll="true" [style]="{width:'15em'}">
   <h3 style="font-weight:normal">ADMINISTRADOR</h3>
   <p-menu [model]="items"></p-menu>
 </p-sidebar>
-<app-navbar #appbar></app-navbar>
-<router-outlet></router-outlet>
 
+<app-navbar #appbar></app-navbar>
+
+<router-outlet></router-outlet>
