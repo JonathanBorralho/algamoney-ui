@@ -21,6 +21,14 @@ export class LancamentoCadastroComponent implements OnInit {
       { label: 'Receita', value: 'RECEITA' },
       { label: 'Despesa', value: 'DESPESA' }
     ];
+    this.categorias = [
+      { label: 'Alimentação', value: 1 },
+      { label: 'Transporte', value: 2 }
+    ];
+    this.pessoas = [
+      { label: 'Jonathan Sousa', value: 1 },
+      { label: 'Maria Silva', value: 2 }
+    ];
   }
 
 }
