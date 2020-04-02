@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm, FormControl, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -9,11 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class LancamentoCadastroComponent implements OnInit {
   categorias = [];
   pessoas = [];
-  valor = null;
   tipoLancamento = [];
-  tipoLancamentoDefault = 'RECEITA';
-  dataVencimento: Date;
-  dataPagamento: Date;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -29,6 +27,14 @@ export class LancamentoCadastroComponent implements OnInit {
       { label: 'Jonathan Sousa', value: 1 },
       { label: 'Maria Silva', value: 2 }
     ];
+  }
+
+  onSumit(form: NgForm): void {
+    console.log(JSON.stringify(form.value));
+  }
+
+  hasError(control: AbstractControl): boolean {
+    return control?.invalid && control?.dirty;
   }
 
 }

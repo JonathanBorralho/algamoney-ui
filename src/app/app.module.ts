@@ -20,6 +20,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { MessageModule } from 'primeng/message';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -29,6 +30,7 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 registerLocaleData(localePt, 'pt');
 
 
@@ -39,7 +41,8 @@ registerLocaleData(localePt, 'pt');
     NavbarComponent,
     PessoasPesquisaComponent,
     LancamentoCadastroComponent,
-    PessoaCadastroComponent
+    PessoaCadastroComponent,
+    ErrorMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ registerLocaleData(localePt, 'pt');
     SidebarModule,
     MenuModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    MessageModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
