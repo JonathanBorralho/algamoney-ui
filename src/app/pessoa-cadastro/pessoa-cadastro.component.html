@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="ui-g">
+    <div class="ui-g-12">
+      <h1>Nova Pessoa</h1>
+    </div>
+    <form autocomplete="off">
+      <div class="ui-g-12 ui-fluid">
+        <label>Nome</label>
+        <input pInputText type="text" name="nome">
+      </div>
+
+      <div class="ui-g-9 ui-fluid">
+        <label>Logradouro</label>
+        <input pInputText type="text" name="endereco.logradouro">
+      </div>
+
+      <div class="ui-g-3 ui-fluid">
+        <label>Número</label>
+        <input pInputText type="text" name="endereco.numero">
+      </div>
+
+      <div class="ui-g-4 ui-fluid">
+        <label>Complemento</label>
+        <input pInputText type="text" name="endereco.complemento">
+      </div>
+
+      <div class="ui-g-4 ui-fluid">
+        <label>Bairro</label>
+        <input pInputText type="text" name="endereco.bairro">
+      </div>
+
+      <div class="ui-g-4 ui-fluid">
+        <label>CEP</label>
+        <p-inputMask mask="99.999-999" name="endereco.cep"></p-inputMask>
+      </div>
+
+      <div class="ui-g-6 ui-fluid">
+        <label>Cidade</label>
+        <input pInputText type="text" name="endereco.cidade">
+      </div>
+
+      <div class="ui-g-6 ui-fluid">
+        <label>Estado</label>
+        <input pInputText type="text" name="endereco.estado">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="button" label="Novo" class="ui-button-success"></button>
+        <a routerLink="/pessoas">Voltar para a pesquisa</a>
+      </div>
+    </form>
+  </div>
+</div>
