@@ -23,11 +23,10 @@ import { CalendarModule } from 'primeng/calendar';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { PessoasModule } from './pessoas/pessoas.module';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
-import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
-import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
@@ -37,9 +36,7 @@ registerLocaleData(localePt, 'pt');
   declarations: [
     AppComponent,
     LancamentosPesquisaComponent,
-    LancamentoCadastroComponent,
-    PessoasPesquisaComponent,
-    PessoaCadastroComponent
+    LancamentoCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +47,7 @@ registerLocaleData(localePt, 'pt');
 
     SharedModule,
     CoreModule,
+    PessoasModule,
 
     ButtonModule,
     SelectButtonModule,
