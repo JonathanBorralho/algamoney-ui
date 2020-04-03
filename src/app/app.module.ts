@@ -20,19 +20,18 @@ import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
-import { MessageModule } from 'primeng/message';
 
-import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { SharedModule } from './shared/shared.module';
+
 import { NavbarComponent } from './navbar/navbar.component';
+import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
+import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
+import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
-import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.component';
-import { ErrorMessageComponent } from './error-message/error-message.component';
 registerLocaleData(localePt, 'pt');
-
 
 @NgModule({
   declarations: [
@@ -41,8 +40,7 @@ registerLocaleData(localePt, 'pt');
     NavbarComponent,
     PessoasPesquisaComponent,
     LancamentoCadastroComponent,
-    PessoaCadastroComponent,
-    ErrorMessageComponent
+    PessoaCadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +48,8 @@ registerLocaleData(localePt, 'pt');
     AppRoutingModule,
     FormsModule,
     CurrencyMaskModule,
+
+    SharedModule,
 
     ButtonModule,
     SelectButtonModule,
@@ -62,8 +62,7 @@ registerLocaleData(localePt, 'pt');
     SidebarModule,
     MenuModule,
     DropdownModule,
-    CalendarModule,
-    MessageModule
+    CalendarModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
   bootstrap: [AppComponent]
