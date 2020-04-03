@@ -22,8 +22,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
 
-import { NavbarComponent } from './navbar/navbar.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
@@ -37,9 +37,8 @@ registerLocaleData(localePt, 'pt');
   declarations: [
     AppComponent,
     LancamentosPesquisaComponent,
-    NavbarComponent,
-    PessoasPesquisaComponent,
     LancamentoCadastroComponent,
+    PessoasPesquisaComponent,
     PessoaCadastroComponent
   ],
   imports: [
@@ -50,6 +49,7 @@ registerLocaleData(localePt, 'pt');
     CurrencyMaskModule,
 
     SharedModule,
+    CoreModule,
 
     ButtonModule,
     SelectButtonModule,
