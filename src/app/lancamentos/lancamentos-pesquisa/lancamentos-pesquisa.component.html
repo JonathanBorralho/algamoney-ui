@@ -4,33 +4,50 @@
     <div class="ui-g-12">
       <h1>Lançamentos</h1>
     </div>
-    <form #f="ngForm" (ngSubmit)="onPesquisar(f.value)" autocomplete="off">
+    <form #f="ngForm" (ngSubmit)="onPesquisar()" autocomplete="off">
       <div class="ui-g-8 ui-fluid">
         <label>Descrição</label>
-        <input pInputText name="descricao" ngModel>
+        <input pInputText name="descricao" [(ngModel)]="filter.descricao">
       </div>
 
       <div class="ui-g-12">
         <label style="display: block;">Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" name="dataVencimentoDe" [inputStyle]="{ 'width': '95px' }" ngModel></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" name="dataVencimentoDe" [inputStyle]="{ 'width': '95px' }"
+          [(ngModel)]="filter.dataVencimentoDe"></p-calendar>
 
         <label>até</label>
-        <p-calendar dateFormat="dd/mm/yy" name="dataVencimentoAte" [inputStyle]="{ 'width': '95px' }" ngModel></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy" name="dataVencimentoAte" [inputStyle]="{ 'width': '95px' }"
+          [(ngModel)]="filter.dataVencimentoAte"></p-calendar>
       </div>
 
       <div class="ui-g-12">
         <button pButton type="submit" label="Pesquisar"></button>
+        <button pButton type="button" label="Limpar" class="ui-button-success" (click)="limpar(table)">
+        </button>
       </div>
     </form>
 
     <div class="ui-g-12">
-      <p-table [value]="page?.content" [paginator]="true" [rows]="5" [loading]="isLoading" [responsive]="true">
+      <p-table #table [value]="page?.content" [paginator]="true" [rows]="5" [responsive]="true" [loading]="isLoading"
+        [lazy]="true" (onLazyLoad)="loadLancamentos($event)" [totalRecords]="page?.totalElements">
         <ng-template pTemplate="header">
           <tr>
-            <th>Pessoa</th>
-            <th>Descrição</th>
-            <th style="width: 120px;">Vencimento</th>
-            <th style="width: 120px;">Pagamento</th>
+            <th pSortableColumn="pessoa.nome">
+              Pessoa
+              <p-sortIcon field="pessoa.nome"></p-sortIcon>
+            </th>
+            <th pSortableColumn="descricao">
+              Descrição
+              <p-sortIcon field="descricao"></p-sortIcon>
+            </th>
+            <th pSortableColumn="dataVencimento" style="width: 140px;">
+              Vencimento
+              <p-sortIcon field="dataVencimento"></p-sortIcon>
+            </th>
+            <th pSortableColumn="dataPagamento" style="width: 140px;">
+              Pagamento
+              <p-sortIcon field="dataPagamento"></p-sortIcon>
+            </th>
             <th style="width: 120px;">Valor</th>
             <th style="width: 95px;"></th>
           </tr>

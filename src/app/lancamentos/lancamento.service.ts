@@ -5,6 +5,8 @@ import { ResumoLancamento } from './model/resumo-lancamento.mode';
 import { LancamentoFilter } from './model/lancamento-filter';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { Pageable } from '../core/model/pageable.model';
+import { HttpParamsBuilder } from '../core/model/htttp-params-builder';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,10 @@ export class LancamentoService {
 
   constructor(private http: HttpClient) {}
 
-  findAll(filter?: LancamentoFilter): Observable<Page<ResumoLancamento>> {
+  findAll(
+    filter?: LancamentoFilter,
+    pageable?: Pageable
+  ): Observable<Page<ResumoLancamento>> {
     const headers = new HttpHeaders()
       .append('Accept', 'application/json')
       .append(
@@ -22,25 +27,36 @@ export class LancamentoService {
         'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
       );
 
-    let params = new HttpParams();
+    const paramsBuilder = new HttpParamsBuilder();
 
     if (filter?.descricao) {
-      params = params.append('descricao', filter.descricao);
+      paramsBuilder.append('descricao', filter.descricao);
     }
 
     if (filter?.dataVencimentoDe) {
-      params = params.append(
+      paramsBuilder.append(
         'dataVencimentoDe',
         this.format(filter.dataVencimentoDe)
       );
     }
 
     if (filter?.dataVencimentoAte) {
-      params = params.append(
+      paramsBuilder.append(
         'dataVencimentoAte',
         this.format(filter.dataVencimentoAte)
       );
     }
+
+    if (pageable) {
+      paramsBuilder.append('page', pageable.page.toString());
+      paramsBuilder.append('size', pageable.size.toString());
+
+      if (pageable?.sort) {
+        paramsBuilder.append('sort', pageable.sort);
+      }
+    }
+
+    let params = paramsBuilder.build();
 
     return this.http.get<Page<ResumoLancamento>>(`${this.URL}?resumo`, {
       headers,

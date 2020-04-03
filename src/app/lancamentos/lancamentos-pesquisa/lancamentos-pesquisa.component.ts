@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-
-import { tap } from 'rxjs/operators';
+import { Component } from '@angular/core';
 
 import { Page } from 'src/app/core/model/page.model';
 import { LancamentoService } from '../lancamento.service';
 import { ResumoLancamento } from '../model/resumo-lancamento.mode';
 import { LancamentoFilter } from '../model/lancamento-filter';
+import { LazyLoadEvent } from 'primeng/api/public_api';
+import { Pageable } from 'src/app/core/model/pageable.model';
+import { Table } from 'primeng/table/table';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -13,27 +14,35 @@ import { LancamentoFilter } from '../model/lancamento-filter';
   styleUrls: ['./lancamentos-pesquisa.component.css'],
   preserveWhitespaces: true,
 })
-export class LancamentosPesquisaComponent implements OnInit {
+export class LancamentosPesquisaComponent {
   constructor(private lancamentoService: LancamentoService) {}
 
-  isLoading = false;
+  isLoading: boolean = false;
   page: Page<ResumoLancamento>;
+  pageable: Pageable;
+  filter: LancamentoFilter = new LancamentoFilter();
 
-  ngOnInit(): void {
-    this.search();
+  onPesquisar(): void {
+    this.search(this.filter, this.pageable);
   }
 
-  onPesquisar(filter: LancamentoFilter): void {
-    this.search(filter);
+  search(filter?: LancamentoFilter, pageable?: Pageable): void {
+    this.isLoading = true;
+    this.lancamentoService.findAll(filter, pageable).subscribe((page) => {
+      this.page = page;
+      this.isLoading = false;
+    });
   }
 
-  search(filter?: LancamentoFilter): void {
-    this.lancamentoService
-      .findAll(filter)
-      .pipe(tap(() => (this.isLoading = true)))
-      .subscribe((page) => {
-        this.page = page;
-        this.isLoading = false;
-      });
+  loadLancamentos(event: LazyLoadEvent): void {
+    this.pageable = Pageable.from(event);
+    this.search(this.filter, this.pageable);
+  }
+
+  limpar(table: Table) {
+    this.filter = new LancamentoFilter();
+    this.pageable = Pageable.of(0, 5);
+    table.reset();
+    this.search(this.filter, this.pageable);
   }
 }
