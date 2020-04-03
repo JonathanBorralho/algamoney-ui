@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { SharedModule } from '../shared/shared.module';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -17,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
+import { LancamentoService } from './lancamento.service';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
     CommonModule,
     RouterModule,
     FormsModule,
+    HttpClientModule,
 
     SharedModule,
     CurrencyMaskModule,
@@ -43,6 +46,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
   exports: [
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent
-  ]
+  ],
+  providers: [LancamentoService]
 })
 export class LancamentosModule {}
