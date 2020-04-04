@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Table } from 'primeng/table';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 
 import { Page } from 'src/app/core/model/page.model';
 import { Pageable } from 'src/app/core/model/pageable.model';
@@ -16,7 +17,11 @@ import { LancamentoFilter } from '../model/lancamento-filter';
   preserveWhitespaces: true,
 })
 export class LancamentosPesquisaComponent implements OnInit {
-  constructor(private lancamentoService: LancamentoService) {}
+  constructor(
+    private lancamentoService: LancamentoService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   isLoading: boolean;
   page: Page<ResumoLancamento>;
@@ -41,15 +46,36 @@ export class LancamentosPesquisaComponent implements OnInit {
 
   private search(): void {
     this.isLoading = true;
-    this.lancamentoService.findAll(this.filter, this.pageable).subscribe((page) => {
-      this.page = page;
-      this.isLoading = false;
-    });
+    this.lancamentoService
+      .findAll(this.filter, this.pageable)
+      .subscribe((page) => {
+        this.page = page;
+        this.isLoading = false;
+      });
   }
 
   onLimpar(): void {
     this.pageable = Pageable.of(0, 5);
     this.filter = new LancamentoFilter();
     this.table.reset();
+  }
+
+  onExcluir(lancamento: ResumoLancamento) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro?',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => this.excluir(lancamento.id),
+    });
+  }
+
+  private excluir(id: number) {
+    this.lancamentoService.delete(id).subscribe(() => {
+      this.search();
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Excluído com sucesso!',
+      });
+    });
   }
 }

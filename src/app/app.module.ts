@@ -7,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { SidebarModule } from 'primeng/sidebar';
 import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -32,9 +35,15 @@ registerLocaleData(localePt, 'pt');
     LancamentosModule,
 
     SidebarModule,
-    MenuModule
+    MenuModule,
+    ToastModule,
+    ConfirmDialogModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'pt' }],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' },
+    MessageService,
+    ConfirmationService,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

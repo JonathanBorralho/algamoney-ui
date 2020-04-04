@@ -1,1 +1,5 @@
 
+:host>>>.ui-toast-message-success  {
+  background-color: #34a835!important;
+  color: white!important;
+}

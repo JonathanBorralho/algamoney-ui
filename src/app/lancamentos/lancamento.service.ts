@@ -34,10 +34,7 @@ export class LancamentoService {
     }
 
     if (filter?.dataVencimentoDe) {
-      builder.append(
-        'dataVencimentoDe',
-        this.format(filter.dataVencimentoDe)
-      );
+      builder.append('dataVencimentoDe', this.format(filter.dataVencimentoDe));
     }
 
     if (filter?.dataVencimentoAte) {
@@ -60,6 +57,16 @@ export class LancamentoService {
       headers,
       params: builder.build(),
     });
+  }
+
+  delete(id: number): Observable<void> {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+    return this.http.delete<void>(`${this.URL}/${id}`, { headers });
   }
 
   private format(date: Date): string {
