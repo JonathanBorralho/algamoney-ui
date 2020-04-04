@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Page } from '../core/model/page.model';
-import { ResumoLancamento } from './model/resumo-lancamento.mode';
+import { ResumoLancamento } from './model/resumo-lancamento.model';
 import { LancamentoFilter } from './model/lancamento-filter';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';

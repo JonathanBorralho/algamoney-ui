@@ -22,14 +22,15 @@
 
       <div class="ui-g-12">
         <button pButton type="submit" label="Pesquisar"></button>
-        <button pButton type="button" label="Limpar" class="ui-button-success" (click)="limpar(table)">
+        <button pButton type="button" label="Limpar" class="ui-button-success" (click)="onLimpar()">
         </button>
       </div>
     </form>
 
     <div class="ui-g-12">
-      <p-table #table [value]="page?.content" [paginator]="true" [rows]="5" [responsive]="true" [loading]="isLoading"
-        [lazy]="true" (onLazyLoad)="loadLancamentos($event)" [totalRecords]="page?.totalElements">
+      <p-table #table [value]="page?.content" [paginator]="true" [rows]="pageable?.size" [responsive]="true"
+        [loading]="isLoading" [lazy]="true" (onLazyLoad)="loadLancamentos($event)" [totalRecords]="page?.totalElements"
+        [resetPageOnSort]="false" [lazyLoadOnInit]="false">
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="pessoa.nome">
@@ -67,6 +68,9 @@
                 tooltipPosition="top"></button>
             </td>
           </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+          Exibindo {{ page?.numberOfElements }} de {{ page?.totalElements }} registro(s)
         </ng-template>
       </p-table>
     </div>

@@ -14,7 +14,7 @@ export class HttpParamsBuilder {
   }
 
   build(): HttpParams {
-    for (var [key, value] of this.params) {
+    for (const [key, value] of this.params) {
       this.httpParams = this.httpParams.append(key, value);
     }
     return this.httpParams;

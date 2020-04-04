@@ -8,12 +8,13 @@ export class Pageable {
   }
 
   static from(event: LazyLoadEvent): Pageable {
+    console.log(event);
     const size = event.rows;
     const page = event.first / event.rows;
     let sort = event.sortField;
 
     if (sort) {
-      sort += event.sortOrder == 1 ? ',asc' : ',desc';
+      sort = sort.concat(event.sortOrder == 1 ? ',asc' : ',desc');
     }
     return new Pageable(page, size, sort);
   }
