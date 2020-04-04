@@ -8,7 +8,6 @@ export class Pageable {
   }
 
   static from(event: LazyLoadEvent): Pageable {
-    console.log(event);
     const size = event.rows;
     const page = event.first / event.rows;
     let sort = event.sortField;

@@ -6,20 +6,29 @@
     </div>
   </div>
 
-  <div class="ui-g-12 ui-fluid">
-    <label>Nome</label>
-    <input pInputText>
-  </div>
+  <form autocomplete="off" #f="ngForm" (ngSubmit)="onPesquisar()">
+    <div class="ui-g-12 ui-fluid">
+      <label>Nome</label>
+      <input pInputText name="nome" [(ngModel)]="filter.nome">
+    </div>
+
+    <div class="ui-g-12">
+      <button pButton type="submit" label="Pesquisar"></button>
+      <button pButton type="button" label="Limpar" (click)="onLimpar()" class="ui-button-success">
+      </button>
+    </div>
+  </form>
 
   <div class="ui-g-12">
-    <button pButton label="Pesquisar"></button>
-  </div>
-
-  <div class="ui-g-12">
-    <p-table [value]="pessoas" [paginator]="true" [rows]="5" [responsive]="true">
+    <p-table #table [value]="page?.content" [paginator]="true" [rows]="pageable?.size" [responsive]="true" [lazy]="true"
+      [lazyLoadOnInit]="false" (onLazyLoad)="onLazyLoad($event)" [resetPageOnSort]="false"
+      [totalRecords]="page?.totalElements" [loading]="isLoading">
       <ng-template pTemplate="header">
         <tr>
-          <th>Nome</th>
+          <th pSortableColumn="nome">
+            Nome
+            <p-sortIcon field="nome"></p-sortIcon>
+          </th>
           <th>Cidade</th>
           <th>Estado</th>
           <th style="width: 95px;">Status</th>
@@ -38,6 +47,16 @@
               tooltipPosition="top"></button>
           </td>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [attr.colspan]="5">
+            Não há registros
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        Exibindo {{ page?.numberOfElements }} de {{ page?.totalElements }} registro(s)
       </ng-template>
     </p-table>
   </div>

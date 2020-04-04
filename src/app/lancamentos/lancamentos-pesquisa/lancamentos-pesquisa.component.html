@@ -69,6 +69,13 @@
             </td>
           </tr>
         </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td [attr.colspan]="6">
+              Não há registros
+            </td>
+          </tr>
+        </ng-template>
         <ng-template pTemplate="summary">
           Exibindo {{ page?.numberOfElements }} de {{ page?.totalElements }} registro(s)
         </ng-template>

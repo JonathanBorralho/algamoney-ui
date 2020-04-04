@@ -1,32 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { Table } from 'primeng/table';
+import { LazyLoadEvent } from 'primeng/api';
+
+import { Page } from 'src/app/core/model/page.model';
+import { Pageable } from 'src/app/core/model/pageable.model';
+import { PessoaService } from '../pessoa.service';
+import { Pessoa } from '../model/pessoa.model';
+import { PessoaFilter } from '../model/pessoa-filter.model';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrls: ['./pessoas-pesquisa.component.css'],
-  preserveWhitespaces: true
+  preserveWhitespaces: true,
 })
 export class PessoasPesquisaComponent implements OnInit {
-  pessoas = [];
-  constructor() {}
+  @ViewChild('table') table: Table;
+  isLoading = false;
+  page: Page<Pessoa>;
+  pageable: Pageable;
+  filter: PessoaFilter;
+
+  constructor(private pessoaServive: PessoaService) {}
 
   ngOnInit(): void {
-    this.pessoas = [
-      {
-        id: 3,
-        version: 7,
-        nome: 'Jonathan Sousa',
-        ativo: true,
-        endereco: {
-          logradouro: 'Rua Bom Jesus',
-          numero: '571',
-          complemento: null,
-          bairro: 'Cruzeiro',
-          cep: '65110000',
-          cidade: 'São José de Ribamar',
-          estado: 'MA'
-        }
-      }
-    ];
+    this.pageable = Pageable.of(0, 5);
+    this.filter = new PessoaFilter();
+    this.search();
+  }
+
+  onPesquisar() {
+    this.search();
+  }
+
+  private search() {
+    this.isLoading = true;
+    this.pessoaServive.findAll(this.filter, this.pageable).subscribe((page) => {
+      this.page = page;
+      this.isLoading = false;
+    });
+  }
+
+  onLazyLoad(event: LazyLoadEvent) {
+    this.pageable = Pageable.from(event);
+    this.search();
+  }
+
+  onLimpar() {
+    this.pageable = Pageable.of(0, 5);
+    this.filter = new PessoaFilter();
+    this.table.reset();
   }
 }

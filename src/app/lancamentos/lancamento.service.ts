@@ -27,40 +27,38 @@ export class LancamentoService {
         'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
       );
 
-    const paramsBuilder = new HttpParamsBuilder();
+    const builder = new HttpParamsBuilder();
 
     if (filter?.descricao) {
-      paramsBuilder.append('descricao', filter.descricao);
+      builder.append('descricao', filter.descricao);
     }
 
     if (filter?.dataVencimentoDe) {
-      paramsBuilder.append(
+      builder.append(
         'dataVencimentoDe',
         this.format(filter.dataVencimentoDe)
       );
     }
 
     if (filter?.dataVencimentoAte) {
-      paramsBuilder.append(
+      builder.append(
         'dataVencimentoAte',
         this.format(filter.dataVencimentoAte)
       );
     }
 
     if (pageable) {
-      paramsBuilder.append('page', pageable.page.toString());
-      paramsBuilder.append('size', pageable.size.toString());
+      builder.append('page', pageable.page.toString());
+      builder.append('size', pageable.size.toString());
 
       if (pageable?.sort) {
-        paramsBuilder.append('sort', pageable.sort);
+        builder.append('sort', pageable.sort);
       }
     }
 
-    let params = paramsBuilder.build();
-
     return this.http.get<Page<ResumoLancamento>>(`${this.URL}?resumo`, {
       headers,
-      params,
+      params: builder.build(),
     });
   }
 
