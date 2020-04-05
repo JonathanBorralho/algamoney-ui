@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { HttpParamsBuilder } from '../core/model/htttp-params-builder';
@@ -7,6 +7,7 @@ import { Pageable } from '../core/model/pageable.model';
 import { Page } from '../core/model/page.model';
 import { Pessoa } from './model/pessoa.model';
 import { PessoaFilter } from './model/pessoa-filter.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -45,5 +46,20 @@ export class PessoaService {
       headers,
       params: builder.build(),
     });
+  }
+
+  findByName(nome?: string) {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+    return this.http
+      .get<Page<Pessoa>>(`${this.URL}`, {
+        headers,
+        params: { nome, size: '10' },
+      })
+      .pipe(map((page) => page.content));
   }
 }

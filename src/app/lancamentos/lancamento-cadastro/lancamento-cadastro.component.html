@@ -40,12 +40,19 @@
 
       <div class="ui-g-6 ui-fluid">
         <label>Categoria</label>
-        <p-dropdown name="categoria" ngModel required [options]="categorias" placeholder="Selecione" [filter]="true"></p-dropdown>
+        <p-dropdown name="categoria" ngModel required
+          [options]="categorias" optionLabel="nome" placeholder="Selecione" [filter]="true"
+          [emptyFilterMessage]="null"
+          >
+        </p-dropdown>
       </div>
 
       <div class="ui-g-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown name="pessoa" ngModel required [options]="pessoas" placeholder="Selecione" [filter]="true"></p-dropdown>
+        <p-dropdown name="pessoa" ngModel required
+          [options]="pessoas" optionLabel="nome" placeholder="Selecione" [filter]="true"
+          (keyup)="onFilter($event.target.value)" [emptyFilterMessage]="null">
+        </p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-fluid">

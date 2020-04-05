@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentoService } from './lancamento.service';
+import { CategoriaService } from './categoria.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,6 @@ import { LancamentoService } from './lancamento.service';
     LancamentosPesquisaComponent,
     LancamentoCadastroComponent
   ],
-  providers: [LancamentoService]
+  providers: [LancamentoService, CategoriaService]
 })
 export class LancamentosModule {}

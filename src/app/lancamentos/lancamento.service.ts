@@ -61,6 +61,8 @@ export class LancamentoService {
     });
   }
 
+  save() {}
+
   delete(id: number): Observable<void> {
     const headers = new HttpHeaders()
       .append('Accept', 'application/json')

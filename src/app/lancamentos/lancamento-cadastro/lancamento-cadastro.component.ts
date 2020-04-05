@@ -1,40 +1,59 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormControl, AbstractControl } from '@angular/forms';
+import { NgForm, AbstractControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Subject, BehaviorSubject } from 'rxjs';
+
+import { LancamentoService } from '../lancamento.service';
+import { PessoaService } from 'src/app/pessoas/pessoa.service';
+import { CategoriaService } from '../categoria.service';
+import { Pessoa } from 'src/app/pessoas/model/pessoa.model';
+import { Categoria } from '../model/categoria.model';
 
 @Component({
   selector: 'app-lancamento-cadastro',
   templateUrl: './lancamento-cadastro.component.html',
   styleUrls: ['./lancamento-cadastro.component.css'],
-  preserveWhitespaces: true
+  preserveWhitespaces: true,
 })
 export class LancamentoCadastroComponent implements OnInit {
-  categorias = [];
-  pessoas = [];
+  categorias: Categoria[];
+  pessoas: Pessoa[];
   tipoLancamento = [];
+  pessoaSearch$: Subject<string> = new BehaviorSubject('');
 
-  constructor() { }
+  constructor(
+    private lancamentoService: LancamentoService,
+    private pessoaService: PessoaService,
+    private categoriaService: CategoriaService
+  ) {}
 
   ngOnInit(): void {
     this.tipoLancamento = [
       { label: 'Receita', value: 'RECEITA' },
-      { label: 'Despesa', value: 'DESPESA' }
+      { label: 'Despesa', value: 'DESPESA' },
     ];
-    this.categorias = [
-      { label: 'Alimentação', value: 1 },
-      { label: 'Transporte', value: 2 }
-    ];
-    this.pessoas = [
-      { label: 'Jonathan Sousa', value: 1 },
-      { label: 'Maria Silva', value: 2 }
-    ];
+    this.pessoaSearch$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((search) => this.pessoaService.findByName(search))
+      )
+      .subscribe((pessoas) => (this.pessoas = pessoas));
+
+    this.categoriaService
+      .findAll()
+      .subscribe((categorias) => (this.categorias = categorias));
   }
 
   onSumit(form: NgForm): void {
-    console.log(JSON.stringify(form.value));
+    console.log(form.value);
   }
 
   hasError(control: AbstractControl): boolean {
     return control?.invalid && control?.dirty;
   }
 
+  onFilter(search: string) {
+    this.pessoaSearch$.next(search);
+  }
 }
