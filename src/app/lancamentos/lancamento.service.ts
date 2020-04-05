@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Page } from '../core/model/page.model';
-import { ResumoLancamento } from './model/resumo-lancamento.model';
-import { LancamentoFilter } from './model/lancamento-filter';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
+
+import { Page } from '../core/model/page.model';
 import { Pageable } from '../core/model/pageable.model';
 import { HttpParamsBuilder } from '../core/model/htttp-params-builder';
+import { ResumoLancamento } from './model/resumo-lancamento.model';
+import { LancamentoFilter } from './model/lancamento-filter';
+
+import '../core/extensions/date.extensions';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +72,6 @@ export class LancamentoService {
   }
 
   private format(date: Date): string {
-    return moment(date).format('YYYY-MM-DD');
+    return date.toFormat('YYYY-MM-DD');
   }
 }
