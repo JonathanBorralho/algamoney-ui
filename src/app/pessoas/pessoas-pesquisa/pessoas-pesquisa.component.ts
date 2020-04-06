@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Table } from 'primeng/table';
-import { LazyLoadEvent } from 'primeng/api';
+import {
+  LazyLoadEvent,
+  ConfirmationService,
+  MessageService,
+} from 'primeng/api';
 
 import { Page } from 'src/app/core/model/page.model';
 import { Pageable } from 'src/app/core/model/pageable.model';
@@ -22,7 +26,11 @@ export class PessoasPesquisaComponent implements OnInit {
   pageable: Pageable;
   filter: PessoaFilter;
 
-  constructor(private pessoaServive: PessoaService) {}
+  constructor(
+    private pessoaServive: PessoaService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.pageable = Pageable.of(0, 5);
@@ -51,5 +59,24 @@ export class PessoasPesquisaComponent implements OnInit {
     this.pageable = Pageable.of(0, 5);
     this.filter = new PessoaFilter();
     this.table.reset();
+  }
+
+  onExcluir(pessoa: Pessoa) {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir este registro?',
+      acceptLabel: 'Sim',
+      rejectLabel: 'Não',
+      accept: () => this.excluir(pessoa.id),
+    });
+  }
+
+  private excluir(id: number) {
+    this.pessoaServive.delete(id).subscribe((_) => {
+      this.messageService.add({
+        severity: 'success',
+        detail: 'Pessoa excluída com sucesso!',
+      });
+      this.table.reset();
+    });
   }
 }
