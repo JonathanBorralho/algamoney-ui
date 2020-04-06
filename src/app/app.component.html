@@ -1,6 +1,11 @@
 <p-sidebar [(visible)]="appbar.sidebarVisible" blockScroll="true" [style]="{width:'15em'}">
-  <h3 style="font-weight:normal">ADMINISTRADOR</h3>
-  <p-menu [model]="items"></p-menu>
+  <div class="sidebar-logo text-center">
+    Administrador
+  </div>
+
+  <div class="layout-menu">
+    <p-menu [model]="items"></p-menu>
+  </div>
 </p-sidebar>
 
 <app-navbar #appbar></app-navbar>

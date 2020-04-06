@@ -3,3 +3,22 @@
   background-color: #34a835!important;
   color: white!important;
 }
+
+.sidebar-logo {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 15px;
+  border-bottom: 1px solid grey;
+}
+
+.layout-menu {
+  margin-top: 15px;
+}
+
+:host>>>.ui-menuitem .ui-menuitem-link.ui-state-active span.ui-menuitem-text {
+  color: #007ad9;
+}
+
+:host>>>.ui-menuitem .ui-menuitem-link.ui-state-active span.ui-menuitem-icon {
+  color: #007ad9;
+}
