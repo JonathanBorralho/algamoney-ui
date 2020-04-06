@@ -9,6 +9,7 @@ import { ResumoLancamento } from './model/resumo-lancamento.model';
 import { LancamentoFilter } from './model/lancamento-filter';
 
 import '../core/extensions/date.extensions';
+import { Lancamento } from './model/lancamento.model';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +62,17 @@ export class LancamentoService {
     });
   }
 
-  save() {}
+  save(lancamento: Lancamento) {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append('Content-Type', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+
+    return this.http.post(this.URL, lancamento, { headers });
+  }
 
   delete(id: number): Observable<void> {
     const headers = new HttpHeaders()

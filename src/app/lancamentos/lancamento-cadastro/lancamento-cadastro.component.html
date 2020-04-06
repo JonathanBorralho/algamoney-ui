@@ -6,7 +6,7 @@
 
     <form #f="ngForm" (ngSubmit)="onSumit(f)" autocomplete="off">
       <div class="ui-g-12">
-        <p-selectButton #tipo name="tipoLancamento" [options]="tipoLancamento" [ngModel]="'RECEITA'"></p-selectButton>
+        <p-selectButton #tipo name="tipo" [options]="tipoLancamento" [ngModel]="'RECEITA'"></p-selectButton>
       </div>
 
       <div class="ui-g-3 ui-fluid">
