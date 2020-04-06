@@ -5,25 +5,27 @@
     </div>
 
     <form #f="ngForm" (ngSubmit)="onSumit(f)" autocomplete="off">
+      <input type="hidden" name="id" [ngModel]="lancamento.id">
+      <input type="hidden" name="version" [ngModel]="lancamento.version">
       <div class="ui-g-12">
-        <p-selectButton #tipo name="tipo" [options]="tipoLancamento" [ngModel]="'RECEITA'"></p-selectButton>
+        <p-selectButton #tipo name="tipo" [options]="tipoLancamento" [ngModel]="lancamento.tipo"></p-selectButton>
       </div>
 
       <div class="ui-g-3 ui-fluid">
         <label>Vencimento *</label>
-        <p-calendar name="dataVencimento" ngModel dateFormat="dd/mm/yy" [showIcon]="true" required></p-calendar>
+        <p-calendar name="dataVencimento" [ngModel]="lancamento.dataVencimento" dateFormat="dd/mm/yy" [showIcon]="true" required></p-calendar>
         <app-error-message [control]="f.controls.dataVencimento" text="Campo obrigatório" error="required">
         </app-error-message>
       </div>
 
       <div class="ui-g-3 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-        <p-calendar name="dataPagamento" ngModel dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        <p-calendar name="dataPagamento" [ngModel]="lancamento.dataPagamento" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
       </div>
 
       <div class="ui-g-8 ui-fluid">
         <label>Descrição *</label>
-        <input pInputText type="text" name="descricao" ngModel required minlength="5">
+        <input pInputText type="text" name="descricao" [ngModel]="lancamento.descricao" required minlength="5">
         <app-error-message [control]="f.controls.descricao" text="Campo obrigatório" error="required">
         </app-error-message>
         <app-error-message [control]="f.controls.descricao" text="Mínimo de 5 caracteres" error="minlength">
@@ -33,14 +35,14 @@
       <div class="ui-g-4 ui-fluid">
         <label>Valor</label>
         <input pInputText type="text" name="valor" placeholder="0,00" required
-          ngModel
+        [ngModel]="lancamento.valor"
           currencyMask
           [options]="{ prefix: '', thousands: '.', decimal: ',', allowNegative: false }">
       </div>
 
       <div class="ui-g-6 ui-fluid">
         <label>Categoria</label>
-        <p-dropdown name="categoria" ngModel required
+        <p-dropdown name="categoria" [ngModel]="lancamento.categoria" required
           [options]="categorias" optionLabel="nome" placeholder="Selecione" [filter]="true"
           [emptyFilterMessage]="null"
           >
@@ -49,7 +51,7 @@
 
       <div class="ui-g-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown name="pessoa" ngModel required
+        <p-dropdown name="pessoa" [ngModel]="lancamento.pessoa" required
           [options]="pessoas" optionLabel="nome" placeholder="Selecione" [filter]="true"
           (keyup)="onFilter($event.target.value)" [emptyFilterMessage]="null">
         </p-dropdown>
@@ -57,7 +59,7 @@
 
       <div class="ui-g-12 ui-fluid">
         <label>Observação</label>
-        <textarea name="observacao" ngModel pInputTextarea [rows]="3"></textarea>
+        <textarea name="observacao" [ngModel]="lancamento.observacao" pInputTextarea [rows]="3"></textarea>
       </div>
 
       <div class="ui-g-12">

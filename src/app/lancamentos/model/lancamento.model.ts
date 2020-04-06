@@ -1,10 +1,12 @@
-export interface Lancamento {
+export class Lancamento {
   id: number;
+  version: number = 0;
   descricao: string;
   dataVencimento: Date;
   dataPagamento: Date;
   valor: number;
-  tipo: string;
+  tipo: string = 'RECEITA';
+  observacao: string;
   categoria: CategoriaId;
   pessoa: PessoaId;
 }

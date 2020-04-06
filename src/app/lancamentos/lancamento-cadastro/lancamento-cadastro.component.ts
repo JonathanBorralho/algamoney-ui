@@ -10,6 +10,8 @@ import { PessoaService } from 'src/app/pessoas/pessoa.service';
 import { CategoriaService } from '../categoria.service';
 import { Pessoa } from 'src/app/pessoas/model/pessoa.model';
 import { Categoria } from '../model/categoria.model';
+import { ActivatedRoute } from '@angular/router';
+import { Lancamento } from '../model/lancamento.model';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -22,12 +24,14 @@ export class LancamentoCadastroComponent implements OnInit {
   pessoas: Pessoa[];
   tipoLancamento = [];
   pessoaSearch$: Subject<string> = new BehaviorSubject('');
+  lancamento = new Lancamento();
 
   constructor(
     private lancamentoService: LancamentoService,
     private pessoaService: PessoaService,
     private categoriaService: CategoriaService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +50,13 @@ export class LancamentoCadastroComponent implements OnInit {
     this.categoriaService
       .findAll()
       .subscribe((categorias) => (this.categorias = categorias));
+
+    const id = this.route.snapshot.params['id'] as number;
+
+    this.lancamentoService.findById(id).subscribe(lancamento => {
+      this.lancamento = lancamento;
+    });
+
   }
 
   onSumit(form: NgForm): void {
@@ -53,7 +64,7 @@ export class LancamentoCadastroComponent implements OnInit {
       form.reset({ tipo: 'RECEITA' });
       this.messageService.add({
         severity: 'success',
-        detail: 'Lançamento cadastrado com sucesso!',
+        detail: 'Lançamento salvo com sucesso!',
       });
     });
   }

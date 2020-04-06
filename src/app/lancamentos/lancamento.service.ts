@@ -62,6 +62,16 @@ export class LancamentoService {
     });
   }
 
+  findById(id: number): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+    return this.http.get<Lancamento>(`${this.URL}/${id}`, { headers });
+  }
+
   save(lancamento: Lancamento) {
     const headers = new HttpHeaders()
       .append('Accept', 'application/json')
@@ -71,7 +81,22 @@ export class LancamentoService {
         'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
       );
 
+    if (lancamento.id) {
+      return this.update(lancamento);
+    }
     return this.http.post(this.URL, lancamento, { headers });
+  }
+
+  private update(lancamento: Lancamento) {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append('Content-Type', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+
+    return this.http.put(`${this.URL}/${lancamento.id}`, lancamento, { headers });
   }
 
   delete(id: number): Observable<void> {

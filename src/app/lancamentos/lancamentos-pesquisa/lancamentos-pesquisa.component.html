@@ -63,7 +63,7 @@
               {{ lancamento.valor | currency: 'BRL' }}
             </td>
             <td>
-              <button pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
+              <button pButton [routerLink]="['/lancamentos', lancamento.id]" icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></button>
               <button pButton icon="pi pi-trash" class="ui-button-danger" pTooltip="Excluir"
                 tooltipPosition="top" (click)="onExcluir(lancamento)"></button>
             </td>
