@@ -62,4 +62,15 @@ export class PessoaService {
       })
       .pipe(map((page) => page.content));
   }
+
+  save(pessoa: Pessoa) {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append('Content-Type', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+    return this.http.post(this.URL, pessoa, { headers });
+  }
 }

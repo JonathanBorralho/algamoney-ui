@@ -3,7 +3,9 @@
     <div class="ui-g-12">
       <h1>Nova Pessoa</h1>
     </div>
-    <form autocomplete="off" #f="ngForm" autocomplete="off">
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="onSubmit(f)">
+      <input type="hidden" name="ativo" [ngModel]="true" >
+
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
         <input pInputText type="text" name="nome" required minlength="5" ngModel>
@@ -11,51 +13,53 @@
         <app-error-message [control]="f.controls.nome" error="minlength" text="Mínimo de 5 caracteres"></app-error-message>
       </div>
 
-      <div class="ui-g-9 ui-fluid">
-        <label>Logradouro</label>
-        <input pInputText type="text" name="endereco.logradouro" ngModel required>
-        <app-error-message [control]="f.controls['endereco.logradouro']" error="required" text="Campo obrigatório">
-        </app-error-message>
-      </div>
+      <div #endereco="ngModelGroup" ngModelGroup="endereco">
+        <div class="ui-g-9 ui-fluid">
+          <label>Logradouro</label>
+          <input pInputText type="text" name="logradouro" ngModel required>
+          <app-error-message [control]="endereco.control?.controls['logradouro']" error="required" text="Campo obrigatório">
+          </app-error-message>
+        </div>
 
-      <div class="ui-g-3 ui-fluid">
-        <label>Número</label>
-        <input pInputText type="text" name="endereco.numero" ngModel required>
-        <app-error-message [control]="f.controls['endereco.numero']" error="required" text="Campo obrigatório">
-        </app-error-message>
-      </div>
+        <div class="ui-g-3 ui-fluid">
+          <label>Número</label>
+          <input pInputText type="text" name="numero" ngModel required>
+          <app-error-message [control]="endereco.control?.controls['numero']" error="required" text="Campo obrigatório">
+          </app-error-message>
+        </div>
 
-      <div class="ui-g-4 ui-fluid">
-        <label>Complemento</label>
-        <input pInputText type="text" name="endereco.complemento" ngModel>
-      </div>
+        <div class="ui-g-4 ui-fluid">
+          <label>Complemento</label>
+          <input pInputText type="text" name="complemento" ngModel>
+        </div>
 
-      <div class="ui-g-4 ui-fluid">
-        <label>Bairro</label>
-        <input pInputText type="text" name="endereco.bairro" ngModel required>
-        <app-error-message [control]="f.controls['endereco.bairro']" error="required" text="Campo obrigatório">
-        </app-error-message>
-      </div>
+        <div class="ui-g-4 ui-fluid">
+          <label>Bairro</label>
+          <input pInputText type="text" name="bairro" ngModel required>
+          <app-error-message [control]="endereco.control?.controls['bairro']" error="required" text="Campo obrigatório">
+          </app-error-message>
+        </div>
 
-      <div class="ui-g-4 ui-fluid">
-        <label>CEP</label>
-        <p-inputMask mask="99.999-999" name="endereco.cep" ngModel required></p-inputMask>
-        <app-error-message [control]="f.controls['endereco.cep']" error="required" text="Campo obrigatório">
-        </app-error-message>
-      </div>
+        <div class="ui-g-4 ui-fluid">
+          <label>CEP</label>
+          <p-inputMask mask="99.999-999" name="cep" ngModel required></p-inputMask>
+          <app-error-message [control]="endereco.control?.controls['cep']" error="required" text="Campo obrigatório">
+          </app-error-message>
+        </div>
 
-      <div class="ui-g-6 ui-fluid">
-        <label>Cidade</label>
-        <input pInputText type="text" name="endereco.cidade" ngModel required>
-        <app-error-message [control]="f.controls['endereco.cidade']" error="required" text="Campo obrigatório">
-        </app-error-message>
-      </div>
+        <div class="ui-g-6 ui-fluid">
+          <label>Cidade</label>
+          <input pInputText type="text" name="cidade" ngModel required>
+          <app-error-message [control]="endereco.control?.controls['cidade']" error="required" text="Campo obrigatório">
+          </app-error-message>
+        </div>
 
-      <div class="ui-g-6 ui-fluid">
-        <label>Estado</label>
-        <input pInputText type="text" name="endereco.estado" ngModel required>
-        <app-error-message [control]="f.controls['endereco.estado']" error="required" text="Campo obrigatório">
-        </app-error-message>
+        <div class="ui-g-6 ui-fluid">
+          <label>Estado</label>
+          <input pInputText type="text" name="estado" ngModel required>
+          <app-error-message [control]="endereco.control?.controls['estado']" error="required" text="Campo obrigatório">
+          </app-error-message>
+        </div>
       </div>
 
       <div class="ui-g-12">
