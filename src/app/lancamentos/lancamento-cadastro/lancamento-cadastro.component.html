@@ -14,14 +14,16 @@
 
       <div class="ui-g-3 ui-fluid">
         <label>Vencimento *</label>
-        <p-calendar name="dataVencimento" [ngModel]="lancamento.dataVencimento" dateFormat="dd/mm/yy" [showIcon]="true" required></p-calendar>
+        <p-calendar name="dataVencimento" [ngModel]="lancamento.dataVencimento" [locale]="locale" dateFormat="dd/mm/yy"
+          [showIcon]="true" required></p-calendar>
         <app-error-message [control]="f.controls.dataVencimento" text="Campo obrigatório" error="required">
         </app-error-message>
       </div>
 
       <div class="ui-g-3 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-        <p-calendar name="dataPagamento" [ngModel]="lancamento.dataPagamento" dateFormat="dd/mm/yy" [showIcon]="true"></p-calendar>
+        <p-calendar name="dataPagamento" [ngModel]="lancamento.dataPagamento" [locale]="locale" dateFormat="dd/mm/yy"
+          [showIcon]="true"></p-calendar>
       </div>
 
       <div class="ui-g-8 ui-fluid">

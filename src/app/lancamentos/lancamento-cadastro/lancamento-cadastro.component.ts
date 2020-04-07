@@ -4,6 +4,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 import { MessageService } from 'primeng/api';
+import { LocaleSettings } from 'primeng/calendar/calendar';
+import { ptBR } from 'src/app/core/calendar.locale-settings';
 
 import { LancamentoService } from '../lancamento.service';
 import { PessoaService } from 'src/app/pessoas/pessoa.service';
@@ -25,6 +27,7 @@ export class LancamentoCadastroComponent implements OnInit {
   tipoLancamento = [];
   pessoaSearch$: Subject<string> = new BehaviorSubject('');
   lancamento = new Lancamento();
+  locale: LocaleSettings = ptBR;
 
   constructor(
     private lancamentoService: LancamentoService,

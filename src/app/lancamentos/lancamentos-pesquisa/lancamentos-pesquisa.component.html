@@ -12,11 +12,11 @@
 
       <div class="ui-g-12">
         <label style="display: block;">Vencimento</label>
-        <p-calendar dateFormat="dd/mm/yy" name="dataVencimentoDe" [inputStyle]="{ 'width': '95px' }"
+        <p-calendar dateFormat="dd/mm/yy" [locale]="locale" name="dataVencimentoDe" [inputStyle]="{ 'width': '95px' }"
           [(ngModel)]="filter.dataVencimentoDe"></p-calendar>
 
         <label>até</label>
-        <p-calendar dateFormat="dd/mm/yy" name="dataVencimentoAte" [inputStyle]="{ 'width': '95px' }"
+        <p-calendar dateFormat="dd/mm/yy" [locale]="locale" name="dataVencimentoAte" [inputStyle]="{ 'width': '95px' }"
           [(ngModel)]="filter.dataVencimentoAte"></p-calendar>
       </div>
 

@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
+import { LocaleSettings } from 'primeng/calendar';
+import { ptBR } from '../../core/calendar.locale-settings';
 
 import { Page } from 'src/app/core/model/page.model';
 import { Pageable } from 'src/app/core/model/pageable.model';
@@ -28,6 +30,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   pageable: Pageable;
   filter: LancamentoFilter;
   @ViewChild('table') table: Table;
+  locale: LocaleSettings = ptBR;
 
   ngOnInit(): void {
     this.pageable = Pageable.of(0, 5);
