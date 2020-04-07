@@ -62,7 +62,7 @@ export class LancamentoCadastroComponent implements OnInit {
 
   onSumit(form: NgForm): void {
     this.lancamentoService.save(form.value).subscribe((lancamento) => {
-      form.reset(lancamento);
+      this.lancamento = lancamento;
       this.messageService.add({
         severity: 'success',
         detail: 'Lançamento salvo com sucesso!',
