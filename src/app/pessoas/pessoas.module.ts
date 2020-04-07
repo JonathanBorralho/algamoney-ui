@@ -32,10 +32,7 @@ import { PessoaService } from './pessoa.service';
     InputMaskModule,
     SharedModule
   ],
-  exports: [
-    PessoasPesquisaComponent,
-    PessoaCadastroComponent
-  ],
+  exports: [],
   providers: [PessoaService]
 })
 export class PessoasModule {}

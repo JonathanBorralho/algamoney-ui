@@ -44,10 +44,7 @@ import { CategoriaService } from './categoria.service';
     CalendarModule,
     DropdownModule
   ],
-  exports: [
-    LancamentosPesquisaComponent,
-    LancamentoCadastroComponent
-  ],
+  exports: [],
   providers: [LancamentoService, CategoriaService]
 })
 export class LancamentosModule {}
