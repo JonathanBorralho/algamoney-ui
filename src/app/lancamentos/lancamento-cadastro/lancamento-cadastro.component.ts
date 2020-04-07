@@ -53,24 +53,21 @@ export class LancamentoCadastroComponent implements OnInit {
 
     const id = this.route.snapshot.params['id'] as number;
 
-    this.lancamentoService.findById(id).subscribe(lancamento => {
-      this.lancamento = lancamento;
-    });
-
+    if (id) {
+      this.lancamentoService.findById(id).subscribe((lancamento) => {
+        this.lancamento = lancamento;
+      });
+    }
   }
 
   onSumit(form: NgForm): void {
-    this.lancamentoService.save(form.value).subscribe((_) => {
-      form.reset({ tipo: 'RECEITA' });
+    this.lancamentoService.save(form.value).subscribe((lancamento) => {
+      form.reset(lancamento);
       this.messageService.add({
         severity: 'success',
         detail: 'Lançamento salvo com sucesso!',
       });
     });
-  }
-
-  hasError(control: AbstractControl): boolean {
-    return control?.invalid && control?.dirty;
   }
 
   onFilter(search: string) {

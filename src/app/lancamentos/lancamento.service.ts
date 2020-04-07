@@ -72,7 +72,7 @@ export class LancamentoService {
     return this.http.get<Lancamento>(`${this.URL}/${id}`, { headers });
   }
 
-  save(lancamento: Lancamento) {
+  save(lancamento: Lancamento): Observable<Lancamento> {
     const headers = new HttpHeaders()
       .append('Accept', 'application/json')
       .append('Content-Type', 'application/json')
@@ -84,10 +84,10 @@ export class LancamentoService {
     if (lancamento.id) {
       return this.update(lancamento);
     }
-    return this.http.post(this.URL, lancamento, { headers });
+    return this.http.post<Lancamento>(this.URL, lancamento, { headers });
   }
 
-  private update(lancamento: Lancamento) {
+  private update(lancamento: Lancamento): Observable<Lancamento> {
     const headers = new HttpHeaders()
       .append('Accept', 'application/json')
       .append('Content-Type', 'application/json')
@@ -96,7 +96,7 @@ export class LancamentoService {
         'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
       );
 
-    return this.http.put(`${this.URL}/${lancamento.id}`, lancamento, { headers });
+    return this.http.put<Lancamento>(`${this.URL}/${lancamento.id}`, lancamento, { headers });
   }
 
   delete(id: number): Observable<void> {
