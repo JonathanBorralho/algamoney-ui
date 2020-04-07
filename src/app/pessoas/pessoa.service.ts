@@ -63,6 +63,16 @@ export class PessoaService {
       .pipe(map((page) => page.content));
   }
 
+  findById(id: number) {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+    return this.http.get<Pessoa>(`${this.URL}/${id}`, { headers });
+  }
+
   save(pessoa: Pessoa) {
     const headers = new HttpHeaders()
       .append('Accept', 'application/json')
@@ -71,7 +81,22 @@ export class PessoaService {
         'Authorization',
         'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
       );
-    return this.http.post(this.URL, pessoa, { headers });
+
+    if (pessoa.id) {
+      return this.update(pessoa);
+    }
+    return this.http.post<Pessoa>(this.URL, pessoa, { headers });
+  }
+
+  update(pessoa: Pessoa) {
+    const headers = new HttpHeaders()
+      .append('Accept', 'application/json')
+      .append('Content-Type', 'application/json')
+      .append(
+        'Authorization',
+        'Basic am9uYXRoYW4uYm9ycmFsaG9AZ21haWwuY29tOmFkbWlu'
+      );
+    return this.http.put<Pessoa>(`${this.URL}/${pessoa.id}`, pessoa, { headers });
   }
 
   delete(id: number) {

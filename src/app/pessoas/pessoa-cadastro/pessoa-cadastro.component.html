@@ -1,14 +1,16 @@
 <div class="container">
   <div class="ui-g">
     <div class="ui-g-12">
-      <h1>Nova Pessoa</h1>
+      <h1>{{ pessoa.id ? 'Edição de Pessoa' : 'Nova Pessoa'}}</h1>
     </div>
     <form #f="ngForm" autocomplete="off" (ngSubmit)="onSubmit(f)">
-      <input type="hidden" name="ativo" [ngModel]="true" >
+      <input type="hidden" name="id" [ngModel]="pessoa.id">
+      <input type="hidden" name="version" [ngModel]="pessoa.version">
+      <input type="hidden" name="ativo" [ngModel]="pessoa.ativo">
 
       <div class="ui-g-12 ui-fluid">
         <label>Nome</label>
-        <input pInputText type="text" name="nome" required minlength="5" ngModel>
+        <input pInputText type="text" name="nome" required minlength="5" [ngModel]="pessoa.nome">
         <app-error-message [control]="f.controls.nome" error="required" text="Campo obrigatório"></app-error-message>
         <app-error-message [control]="f.controls.nome" error="minlength" text="Mínimo de 5 caracteres"></app-error-message>
       </div>
@@ -16,47 +18,47 @@
       <div #endereco="ngModelGroup" ngModelGroup="endereco">
         <div class="ui-g-9 ui-fluid">
           <label>Logradouro</label>
-          <input pInputText type="text" name="logradouro" ngModel required>
+          <input pInputText type="text" name="logradouro" [ngModel]="pessoa.endereco.logradouro" required>
           <app-error-message [control]="endereco.control?.controls['logradouro']" error="required" text="Campo obrigatório">
           </app-error-message>
         </div>
 
         <div class="ui-g-3 ui-fluid">
           <label>Número</label>
-          <input pInputText type="text" name="numero" ngModel required>
+          <input pInputText type="text" name="numero" [ngModel]="pessoa.endereco.numero" required>
           <app-error-message [control]="endereco.control?.controls['numero']" error="required" text="Campo obrigatório">
           </app-error-message>
         </div>
 
         <div class="ui-g-4 ui-fluid">
           <label>Complemento</label>
-          <input pInputText type="text" name="complemento" ngModel>
+          <input pInputText type="text" name="complemento" [ngModel]="pessoa.endereco.complemento">
         </div>
 
         <div class="ui-g-4 ui-fluid">
           <label>Bairro</label>
-          <input pInputText type="text" name="bairro" ngModel required>
+          <input pInputText type="text" name="bairro" [ngModel]="pessoa.endereco.bairro" required>
           <app-error-message [control]="endereco.control?.controls['bairro']" error="required" text="Campo obrigatório">
           </app-error-message>
         </div>
 
         <div class="ui-g-4 ui-fluid">
           <label>CEP</label>
-          <p-inputMask mask="99.999-999" name="cep" ngModel required></p-inputMask>
+          <p-inputMask mask="99.999-999" name="cep" [ngModel]="pessoa.endereco.cep" required></p-inputMask>
           <app-error-message [control]="endereco.control?.controls['cep']" error="required" text="Campo obrigatório">
           </app-error-message>
         </div>
 
         <div class="ui-g-6 ui-fluid">
           <label>Cidade</label>
-          <input pInputText type="text" name="cidade" ngModel required>
+          <input pInputText type="text" name="cidade" [ngModel]="pessoa.endereco.cidade" required>
           <app-error-message [control]="endereco.control?.controls['cidade']" error="required" text="Campo obrigatório">
           </app-error-message>
         </div>
 
         <div class="ui-g-6 ui-fluid">
           <label>Estado</label>
-          <input pInputText type="text" name="estado" ngModel required>
+          <input pInputText type="text" name="estado" [ngModel]="pessoa.endereco.estado" required>
           <app-error-message [control]="endereco.control?.controls['estado']" error="required" text="Campo obrigatório">
           </app-error-message>
         </div>
@@ -64,7 +66,7 @@
 
       <div class="ui-g-12">
         <button pButton type="submit" label="Salvar" [disabled]="f.invalid"></button>
-        <button pButton type="button" label="Novo" class="ui-button-success"></button>
+        <button *ngIf="pessoa.id" routerLink="/pessoas/nova" pButton type="button" label="Novo" class="ui-button-success"></button>
         <a routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
     </form>

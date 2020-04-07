@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'lancamentos/:id', component: LancamentoCadastroComponent },
   { path: 'lancamentos', component: LancamentosPesquisaComponent },
   { path: 'pessoas/nova', component: PessoaCadastroComponent },
+  { path: 'pessoas/:id', component: PessoaCadastroComponent },
   { path: 'pessoas', component: PessoasPesquisaComponent },
   { path: '', redirectTo: '/lancamentos', pathMatch: 'full' }
 ];

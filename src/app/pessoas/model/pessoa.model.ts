@@ -1,11 +1,12 @@
-export interface Pessoa {
+export class Pessoa {
   id: number;
+  version: number = 0;
   nome: string;
-  ativo: boolean;
-  endereco: Endereco;
+  ativo: boolean = true;
+  endereco: Endereco = new Endereco();
 }
 
-export interface Endereco {
+export class Endereco {
   logradouro: string;
   numero: string;
   complemento: string;
